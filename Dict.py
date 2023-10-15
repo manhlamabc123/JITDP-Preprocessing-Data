@@ -1,8 +1,9 @@
 import pickle
+from icecream import ic
 
 class Dict(object):
     def __init__(self, lower=False):
-        print("init Dict")
+        ic()
 
         self.labelToIdx = {"!": 0, "#":1, "$":2, "%":3, "&":4, "'":5, "<NULL>":6, "added":7, "_":8, "removed":9}
         self.idxToLabel = {0:"!", 1: "#", 2:"$", 3:"%", 4:"&", 5:"'", 6:"<NULL>", 7:"added", 8:"_", 9:"removed"}
