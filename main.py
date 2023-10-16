@@ -6,7 +6,7 @@ from tqdm import tqdm
 def read_args():
     parser = argparse.ArgumentParser()
 
-    parser.add_argument('-data_dir', type=str, default='/home/manh/Documents/Data/tan-dataset-new/divided_data')
+    parser.add_argument('-data_dir', type=str, default='/home/manh/Documents/Data/splited-tan-dataset')
     parser.add_argument('-project', type=str, default='bootstrap')
     parser.add_argument('-detail', type=str, default='begin_to_2021')
 
@@ -39,6 +39,10 @@ def main():
     ic(params.data_dir)
     ic(params.project)
     ic(params.detail)
+
+    if os.path.exists(f"{params.data_dir}/{params.project}/commits/{params.project}_{params.detail}_dict.pkl"):
+        ic("Already preprocessed")
+        return
 
     data = pickle.load(open(f'{params.data_dir}/{params.project}/{params.project}_{params.detail}.pkl', 'rb'))
     ic(len(data))
@@ -111,12 +115,12 @@ def main():
     cc2vec_preprocessed_train = [ids, messages, cc2vec_commits, labels]
     deepjit_preprocessed_train = [ids, messages, deepjit_commits, labels]
 
-    if not os.path.exists(f"{params.data_dir}/{params.project}/clean"):
-        os.makedirs(f"{params.data_dir}/{params.project}/clean")
+    if not os.path.exists(f"{params.data_dir}/{params.project}/commits"):
+        os.makedirs(f"{params.data_dir}/{params.project}/commits")
 
-    pickle.dump(project_dict, open(f"{params.data_dir}/{params.project}/clean/{params.project}_{params.detail}_dict.pkl", 'wb'))
-    pickle.dump(cc2vec_preprocessed_train, open(f"{params.data_dir}/{params.project}/clean/{params.project}_{params.detail}.pkl", 'wb'))
-    pickle.dump(deepjit_preprocessed_train, open(f"{params.data_dir}/{params.project}/clean/{params.project}_{params.detail}_dextend.pkl", 'wb'))
+    pickle.dump(project_dict, open(f"{params.data_dir}/{params.project}/commits/{params.project}_{params.detail}_dict.pkl", 'wb'))
+    pickle.dump(cc2vec_preprocessed_train, open(f"{params.data_dir}/{params.project}/commits/{params.project}_{params.detail}.pkl", 'wb'))
+    pickle.dump(deepjit_preprocessed_train, open(f"{params.data_dir}/{params.project}/commits/{params.project}_{params.detail}_dextend.pkl", 'wb'))
 
 if __name__ == "__main__":
     main()
