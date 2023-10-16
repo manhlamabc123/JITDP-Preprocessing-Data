@@ -16,11 +16,11 @@ for folder in $(find "$root_directory" -maxdepth 1 -type d); do
         continue
     fi
 
-    # Change the working directory to the current folder
-    cd "$folder"
+    # Return to the root directory for the next iteration
+    cd "$root_directory"
 
-    # Perform the desired operations in this directory
-    rm -rf *.pkl
+    # Zip the folder_name
+    zip -r "$folder_name.zip" "$folder_name"
 
     # Return to the root directory for the next iteration
     cd "$root_directory"

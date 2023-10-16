@@ -14,7 +14,7 @@ def read_args():
 
 def filter_duplicate(my_list: list):
     unique_dict = {}
-    for dictionary in my_list:
+    for dictionary in tqdm(my_list):
         key = json.dumps(dictionary, sort_keys=True)
         unique_dict[key] = dictionary
 
